@@ -30,14 +30,25 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: all_attendee; Type: TABLE; Schema: public; Owner: matte; Tablespace: 
+--
+
+CREATE TABLE all_attendee (
+    name character varying NOT NULL,
+    rspv boolean DEFAULT true,
+    no_elegible boolean DEFAULT false,
+    elected boolean DEFAULT false
+);
+
+
+ALTER TABLE public.all_attendee OWNER TO matte;
+
+--
 -- Name: attendee; Type: TABLE; Schema: public; Owner: matte; Tablespace: 
 --
 
 CREATE TABLE attendee (
-    name character varying NOT NULL,
-    rspv boolean DEFAULT true,
-    elected boolean DEFAULT false,
-    no_elegible boolean DEFAULT false
+    name character varying NOT NULL
 );
 
 
@@ -56,10 +67,10 @@ CREATE TABLE meeting (
 ALTER TABLE public.meeting OWNER TO matte;
 
 --
--- Data for Name: attendee; Type: TABLE DATA; Schema: public; Owner: matte
+-- Data for Name: all_attendee; Type: TABLE DATA; Schema: public; Owner: matte
 --
 
-COPY attendee (name, rspv, elected, no_elegible) FROM stdin;
+COPY all_attendee (name, rspv, no_elegible, elected) FROM stdin;
 Orestes	t	f	f
 edgar Lizarazo	t	f	f
 antonio	t	f	f
@@ -93,9 +104,43 @@ Jorge	f	f	f
 Antonio de la Torre	f	f	f
 Iván López	f	f	f
 Alejandro Brito Monedero	f	f	f
-Matteo Melli	t	f	t
-Álvaro Hernández Tortosa	t	f	t
-César Calvo Pinilla	t	f	t
+Matteo Melli	t	t	f
+Álvaro Hernández Tortosa	t	t	f
+César Calvo Pinilla	t	t	f
+\.
+
+
+--
+-- Data for Name: attendee; Type: TABLE DATA; Schema: public; Owner: matte
+--
+
+COPY attendee (name) FROM stdin;
+Orestes
+edgar Lizarazo
+antonio
+Eduardo
+krasnogors­k
+Javier Camuñas
+Santos
+Guillermo Saenz de Santa
+Ivan Perez
+José Daniel González Mato
+Jerolba
+Luis Alberto Adan Gonzalez
+Ivan
+Luis
+Stéphan Lenglart
+David Cordero
+Juan Arias
+Javier de la Torre
+Jorge Arévalo
+Daniel Lombraña González
+Miguel
+Alfonso Uceda
+Fernando Blat
+Carlos Sánchez Pérez
+eLafo
+jaime
 \.
 
 
@@ -106,6 +151,14 @@ César Calvo Pinilla	t	f	t
 COPY meeting (event_date, name) FROM stdin;
 2014-02-04	¡Meetup de febrero de PostgreSQL España!
 \.
+
+
+--
+-- Name: all_attendee_pkey; Type: CONSTRAINT; Schema: public; Owner: matte; Tablespace: 
+--
+
+ALTER TABLE ONLY all_attendee
+    ADD CONSTRAINT all_attendee_pkey PRIMARY KEY (name);
 
 
 --
